@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+        integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+        crossorigin="anonymous"></script>
+    <title>Home Page</title>
+    <style>
+        .A { background: linear-gradient(to bottom, #2c2d2d, #ffffff); }
+        .center{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .button {
+            display: flex;
+            padding: 10px 20px;
+            height: 128px;
+            width: 256px;
+            margin:15px;
+            margin-top: 70px;
+            text-align: center;
+            align-items: center;
+            text-decoration: none;
+            color: #000000;
+            background-color: #dfeded;
+            border-radius: 6px;
+            outline: none;
+            transition: 0.5s;
+        }
+        .button:hover {
+            transform: scale(1.05);
+            background-color: #527dff;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <div class="center A h-80">
+    <p style="font-size: 24px;" >Welcome to my Project :)</p>
+    </div>
+    <div class="center">
+    <button class="button" onclick="window.location.href='/playground/'"><img src="C://Users//Dark//OneDrive//Desktop//compiler//src//button-playground.png"></button>
+    <button class="button" onclick="window.location.href='/playground/'"></button>
+    </div>
+</body>
+
+</html>
