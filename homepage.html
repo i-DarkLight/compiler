@@ -10,13 +10,14 @@
         crossorigin="anonymous"></script>
     <title>Home Page</title>
     <style>
-        .A { background: linear-gradient(to bottom, #2c2d2d, #ffffff); }
+        .A { background: linear-gradient(to bottom, #527dff, #ffffff); }
         .center{
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .button {
+            justify-content: center;
             display: flex;
             padding: 10px 20px;
             height: 128px;
@@ -27,26 +28,30 @@
             align-items: center;
             text-decoration: none;
             color: #000000;
-            background-color: #dfeded;
-            border-radius: 6px;
+            border-width: 1.5px;
+            border-color: #000000;
+            background-color: #ffffff;
+            border-radius: 10px;
             outline: none;
             transition: 0.5s;
         }
         .button:hover {
             transform: scale(1.05);
+            color: #ffffff;
+            border-color: #527dff;
             background-color: #527dff;
         }
     </style>
 </head>
 
 <body id="body">
-    <div class="center A h-80">
+    <div class="center h-36">
     <p style="font-size: 24px;" >Welcome to my Project :)</p>
     </div>
+    <div style="width: 100%;display: flex;justify-content: center;height: 150px;"><div style="width: 80%;height: 60px;border-radius: 6px;" class="A"></div></div>
     <div class="center">
-    <button class="button" onclick="window.location.href='/playground/'"><img src="C://Users//Dark//OneDrive//Desktop//compiler//src//button-playground.png"></button>
-    <button class="button" onclick="window.location.href='/playground/'"></button>
+    <button class="button" onclick="window.location.href='/playground/'">Play Ground</button>
+    <button class="button" onclick="window.location.href='/nrparser/'">NR Parser</button>
     </div>
 </body>
-
 </html>

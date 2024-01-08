@@ -10,9 +10,13 @@ import (
 )
 
 func main() {
-	h1 := func(w http.ResponseWriter, r *http.Request) {
+	home := func(w http.ResponseWriter, r *http.Request) {
 		templ := template.Must(template.ParseFiles("homepage.html"))
 		templ.Execute(w, nil)
+	}
+	nrparser:=func (w http.ResponseWriter, r *http.Request){
+		templ:=template.Must(template.ParseFiles("NRParser.html"))
+		templ.Execute(w,nil)
 	}
 	playground:=func(w http.ResponseWriter, r *http.Request){
 		templ := template.Must(template.ParseFiles("playground.html"))
@@ -25,7 +29,7 @@ func main() {
 			log.Fatal(http.StatusMethodNotAllowed)
 		}
 		temp := r.PostFormValue("text")
-		f, err := os.OpenFile(".\\src\\code.txt", os.O_TRUNC|os.O_WRONLY, 0644)
+		f, err := os.OpenFile(".\\data\\code.txt", os.O_TRUNC|os.O_WRONLY, 0644)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -34,15 +38,16 @@ func main() {
 		f.Close()
 		cmd := exec.Command("C:\\Users\\Dark\\compiler\\dlang.exe", "quiet", "OPT=XY")
 		cmd.Run()
-		readtokens, _ := os.ReadFile(".\\src\\compiled.txt")
-		readerror, _ := os.ReadFile(".\\src\\errors.txt")
+		readtokens, _ := os.ReadFile(".\\data\\compiled.txt")
+		readerror, _ := os.ReadFile(".\\data\\errors.txt")
 		if string(readerror) != "" {
 			io.WriteString(w, string(readerror))
 		} else {
 			io.WriteString(w,string(readtokens))
 		}
 	}
-	http.HandleFunc("/", h1)
+	http.HandleFunc("/", home)
+	http.HandleFunc("/nrparser/",nrparser)
 	http.HandleFunc("/playground/", playground)
 	http.HandleFunc("/playground/compile/",h2)
 	http.HandleFunc("/playground/deleteInput/", h2)

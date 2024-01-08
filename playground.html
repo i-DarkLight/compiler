@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Project</title>
+    <title>Code Env</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10"
         integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
@@ -12,32 +12,39 @@
 </head>
 
 <body id="main" class="bg-gray-700">
-    <form hx-post="/playground/compile/" hx-target="#compileresult" id="inputform">
-        <div class="mb-4 border border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" id="input">
-            <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-600">
-                <label for="inputarea" class="sr-only">Coding Playground</label>
-                <textarea id="inputarea" rows="10" name="text"
-                    class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-600 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                    placeholder="Write your code..." required form="inputform"></textarea>
+    <div style="display:flex; height: 1.5cm;width: 100%;"></div>
+    <div style="display: flexbox;justify-content:center;">
+        <div style="display: flex;align-items: baseline;justify-content: center;">
+            <form hx-post="/playground/compile/" hx-target="#compileresult"
+                style="display: inline-block; margin: 15px;width: 50%;" id="inputform">
+                <div class="mb-4 border border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" id="input">
+                    <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-600">
+                        <label for="inputarea" class="sr-only">Coding Playground</label>
+                        <textarea id="inputarea" rows="25" name="text"
+                            class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-600 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                            placeholder="Write your code..." required form="inputform"></textarea>
+                    </div>
+                    <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+                        <button type="submit"
+                            class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                            Compile
+                        </button>
+                        <button hx-get="/playground/" hx-target="#main"
+                            class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900 hover:bg-red-800">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="mb-4 border border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
+                style="display: inline-block; width: 50%;">
+                <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-600" id="result">
+                    <label for="compileresult" class="sr-only">Compile Result</label>
+                    <textarea id="compileresult" rows="25" disabled
+                        class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-600 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                        placeholder="result will appear here..."></textarea>
+                </div>
             </div>
-            <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                <button type="submit"
-                    class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-                    Compile
-                </button>
-                <button type="submit" hx-get="/playground/" hx-target="#main"
-                    class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900 hover:bg-red-800">
-                    Clear
-                </button>
-            </div>
-        </div>
-    </form>
-    <div class="mb-4 border border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" >
-        <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-600" id ="result">
-            <label for="compileresult" class="sr-only">Compile Result</label>
-            <textarea id="compileresult" rows="10" disabled
-                class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-600 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                placeholder="result will appear here..."></textarea>
         </div>
     </div>
 </body>
