@@ -1,1 +1,2 @@
-[id1]
+[cycle] [start] [id1] [assign] [23] [end] [id1] [minor] [25] [pace] [id1] [inc] [aculadOpen]
+[id2] [assign] [24] [aculadClose]
