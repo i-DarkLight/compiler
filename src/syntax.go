@@ -2,6 +2,7 @@ package src
 
 import (
 	"strconv"
+	"strings"
 )
 
 var OpenIndexes []int
@@ -9,6 +10,7 @@ var CloseIndexes []int
 var lookahead string
 var internalcode string
 var pointer int
+
 func indexGen(s, sub string) []int {
 	var indexes []int
 	for index, letter := range s {
@@ -24,7 +26,7 @@ func match(str string) {
 		lookahead = internalcode[OpenIndexes[pointer]+1 : CloseIndexes[pointer]]
 		println(lookahead)
 	} else {
-	//	println("error")
+		//	println("error")
 	}
 }
 func other() {
@@ -73,31 +75,22 @@ func multiple() {
 func assign() {
 	if lookahead[0:2] == "id" {
 		match(lookahead)
-		if lookahead == "assign" {
-			match("assign")
-			value()
-		}
+		match("assign")
+		value()
 	}
 }
 func loop() {
 	if lookahead == "start" {
 		match("start")
 		assign()
-		if lookahead == "end" {
-			match("end")
-			comparison()
-			if lookahead == "pace" {
-				match("pace")
-				pace()
-				if lookahead == "aculadOpen" {
-					match("aculadOpen")
-					start()
-					if lookahead == "aculadClose" {
-						match("aculadClose")
-					}
-				}
-			}
-		}
+		match("end")
+		comparison()
+		match("pace")
+		pace()
+		match("aculadOpen")
+		start()
+		match("aculadClose")
+
 	} else {
 		println("error")
 	}
@@ -113,47 +106,29 @@ func elsecondition() {
 	if lookahead == "elseif" {
 		match("elseif")
 		comparisoncond()
-		if lookahead == "Colon" {
-			match("Colon")
-			if lookahead == "aculadOpen" {
-				match("aculadOpen")
-				start()
-				if lookahead == "aculadClose" {
-					match("aculadClose")
-				}
-			}
-		}
+		match("Colon")
+		match("aculadOpen")
+		start()
+		match("aculadClose")
 	}
 }
 func condmirror() {
 	if lookahead == "else" {
 		match("else")
 		comparisoncond()
-		if lookahead == "Colon" {
-			match("Colon")
-			if lookahead == "aculadOpen" {
-				match("aculadOpen")
-				start()
-				if lookahead == "aculadClose" {
-					match("aculadClose")
-				}
-			}
-		}
+		match("Colon")
+		match("aculadOpen")
+		start()
+		match("aculadClose")
 	}
 }
 func call() {
-		if lookahead == "func" {
-			match("func")
-			if lookahead[0:2] == "id" {
-				match(lookahead)
-				if lookahead == "parantOpen" {
-					match("parantOpen")
-					parameter()
-					if lookahead == "parantClose" {
-						match("parantClose")
-					}
-				}
-			}
+	if lookahead == "func" {
+		match("func")
+		match(lookahead)
+		match("parantOpen")
+		parameter()
+		match("parantClose")
 	} else {
 		println("error")
 	}
@@ -262,46 +237,43 @@ func par() {
 func function() {
 	if lookahead[0:2] == "id" {
 		match(lookahead)
-		if lookahead == "parantOpen" {
-			match("parantOpen")
-			parameter()
-			if lookahead == "parantClose" {
-				match("parantClose")
-				if lookahead == "aculadOpen" {
-					match("aculadOpen")
-					start()
-					if lookahead == "aculadClose" {
-						match("aculadClose")
-					}
-				}
-			}
-		}
+		match("parantOpen")
+		parameter()
+		match("parantClose")
+		match("aculadOpen")
+		start()
+		match("aculadClose")
 	}
 }
-
 func shart() {
 	comparisoncond()
-	if lookahead == "Colon" {
-		match("Colon")
-		if lookahead == "aculadOpen" {
-			match("aculadOpen")
-			start()
-			if lookahead == "aculadClose" {
-				match("aculadClose")
-				elsecondition()
-				condmirror()
-			}
+	match("Colon")
+	match("aculadOpen")
+	start()
+	match("aculadClose")
+	elsecondition()
+	condmirror()
+}
+func format(str string)string{
+	var ret string
+	for i:=0;i<len(OpenIndexes);i++{
+		temp:=str[OpenIndexes[i]+1:CloseIndexes[i]]
+		if strings.Contains(temp,"id"){
+			ret+="id"
+		} else {
+			ret+=str[:CloseIndexes[i]]+string(str[CloseIndexes[i]])
 		}
-	} else {
-		println("error")
 	}
+	println(ret)
+	return ret
 }
 func SyntaxChecker(code string) string {
-	internalcode = code
+	internalcode=format(code)
+//	println(internalcode)
 	pointer = -1
 	OpenIndexes = indexGen(code, "[")
 	CloseIndexes = indexGen(code, "]")
 	lookahead = code[OpenIndexes[0]+1 : CloseIndexes[0]]
-	start()
+	//start()
 	return ""
 }
