@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"io"
 	"log"
@@ -19,13 +20,14 @@ func main() {
 	nrparser := func(w http.ResponseWriter, r *http.Request) {
 		templ := template.Must(template.ParseFiles("NRParser.html"))
 		templ.Execute(w, nil)
+		http.Error(w, "Inja Badan vasl mishe :)", http.StatusNoContent)
 	}
 	playground := func(w http.ResponseWriter, r *http.Request) {
 		templ := template.Must(template.ParseFiles("playground.html"))
 		templ.Execute(w, nil)
 	}
-	h2 := func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/html")
+	compile := func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/html ;charset=utf-8")
 		w.WriteHeader(http.StatusOK)
 		if r.Method != "POST" {
 			log.Fatal(http.StatusMethodNotAllowed)
@@ -38,32 +40,25 @@ func main() {
 		defer r.Body.Close()
 		f.WriteString(temp)
 		f.Close()
-		cmd := exec.Command("C:\\Users\\Dark\\compiler\\dlang.exe", "quiet", "OPT=XY")
+		cmd := exec.Command(".\\lexical.exe", "quiet", "OPT=XY")
 		cmd.Run()
-		errors, err := os.OpenFile(".\\data\\errors.txt", os.O_APPEND|os.O_RDWR, 0644)
-		if err != nil {
-			log.Fatal(err)
-		}
 		compiled, _ := os.ReadFile(".\\data\\compiled.txt")
-		src.SyntaxChecker(string(compiled))
-		errors.WriteString(src.SyntaxChecker(string(compiled)))
-		readtokens, _ := os.ReadFile(".\\data\\compiled.txt")
 		readerror, _ := os.ReadFile(".\\data\\errors.txt")
+		if string(readerror)==""{
+			src.SyntaxChecker(string(compiled))
+		}
+		readerror, _ = os.ReadFile(".\\data\\errors.txt")
 		if string(readerror) != "" {
 			io.WriteString(w, string(readerror))
 		} else {
-			io.WriteString(w, string(readtokens))
+			fmt.Fprintf(w, "No Errors Found...\nCompiled Successfully!")
 		}
-	}
-	compile2 := func(w http.ResponseWriter, r *http.Request) {
-
 	}
 	http.HandleFunc("/", home)
 	http.HandleFunc("/nrparser/", nrparser)
 	http.HandleFunc("/playground/", playground)
-	http.HandleFunc("/playground/compile/", h2)
-	http.HandleFunc("/playground/deleteInput/", h2)
-	http.HandleFunc("/playground/compile2", compile2)
+	http.HandleFunc("/playground/compile/", compile)
+	http.HandleFunc("/playground/deleteInput/", compile)
 	println("Starting server at port 8000...")
 	if err := http.ListenAndServe(":8000", nil); err != nil {
 		log.Fatal(err)
