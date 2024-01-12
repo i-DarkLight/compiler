@@ -9,14 +9,39 @@
     <script src="https://unpkg.com/htmx.org@1.9.10"
         integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
         crossorigin="anonymous"></script>
+    <style>
+        .button {
+            display: block;
+            border-radius: 25%;
+            border-color: #527dff;
+            width: 50px;
+            height: 50px;
+            margin:10px;
+            color: #000000;
+            background-color: #ffffff;
+            padding: 0px;
+            border-width: 1px;
+            text-align: center;
+            font-size: 14px;
+            margin-left: 20px;
+            transition: 0.5s;
+        }
+        .button:hover{
+            transform: scale(0.95);
+            color:#ffffff;
+            border-color: #527dff;
+            background-color: #527dff;
+        }
+    </style>
 </head>
 
 <body id="main" class="bg-gray-700">
-    <div style="display:flex; height: 1.5cm;width: 100%;"></div>
-    <div style="display: flexbox;justify-content:center;">
-        <div style="display: flex;align-items: baseline;justify-content: center;">
-            <form hx-post="/playground/compile/" hx-target="#compileresult"
-                style="display: inline-block; margin: 15px;width: 50%;" id="inputform">
+    <div style="display:flex; height: 1.5cm;width: 100%;align-items: baseline;">
+    <button class="button border-black" onclick="window.location.href='/'">Home</button>
+    </div>
+    <div style="display: flex;align-items: baseline center;justify-content: center;">
+        <div style="display: inline-block; margin: 15px;width: 50%;">
+            <form hx-post="/playground/compile/" hx-target="#compileresult" id="inputform">
                 <div class="mb-4 border border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" id="input">
                     <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-600">
                         <label for="inputarea" class="sr-only">Coding Playground</label>
@@ -36,17 +61,18 @@
                     </div>
                 </div>
             </form>
-            <div class="mb-4 border border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
-                style="display: inline-block; width: 50%;">
-                <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-600" id="result">
-                    <label for="compileresult" class="sr-only">Compile Result</label>
-                    <textarea id="compileresult" rows="25" disabled
-                        class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-600 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                        placeholder="result will appear here..."></textarea>
-                </div>
+        </div>
+        <div class="mb-4 border border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
+            style="display: inline-block; width: 50%;margin:15px;">
+            <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-600" id="result">
+                <label for="compileresult" class="sr-only">Compile Result</label>
+                <textarea id="compileresult" rows="25" disabled
+                    class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-600 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                    placeholder="result will appear here..."></textarea>
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
