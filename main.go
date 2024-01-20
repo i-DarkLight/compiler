@@ -33,21 +33,21 @@ func main() {
 			log.Fatal(http.StatusMethodNotAllowed)
 		}
 		temp := r.PostFormValue("text")
-		f, err := os.OpenFile(".\\data\\code.txt", os.O_TRUNC|os.O_WRONLY, 0644)
+		f, err := os.OpenFile("./data/code.txt", os.O_TRUNC|os.O_WRONLY, 0644)
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer r.Body.Close()
 		f.WriteString(temp)
 		f.Close()
-		cmd := exec.Command(".\\lexical.exe", "quiet", "OPT=XY")
+		cmd := exec.Command("./lexical.exe", "quiet", "OPT=XY")
 		cmd.Run()
-		compiled, _ := os.ReadFile(".\\data\\compiled.txt")
-		readerror, _ := os.ReadFile(".\\data\\errors.txt")
-		if string(readerror)==""{
+		compiled, _ := os.ReadFile("./data/compiled.txt")
+		readerror, _ := os.ReadFile("./data/errors.txt")
+		if string(readerror) == "" {
 			src.SyntaxChecker(string(compiled))
 		}
-		readerror, _ = os.ReadFile(".\\data\\errors.txt")
+		readerror, _ = os.ReadFile("./data/errors.txt")
 		if string(readerror) != "" {
 			io.WriteString(w, string(readerror))
 		} else {

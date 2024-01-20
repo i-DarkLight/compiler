@@ -465,7 +465,7 @@ func pp() {
 func parameter() {
 	if lookahead == "id" {
 		match("id")
-	} else if lookahead!="Cama" && lookahead!="parantOpen"{
+	} else if lookahead != "Cama" && lookahead != "parantOpen" {
 		number := strings.Count(internalcode[:CloseIndexes[pointer]], "\n") + 1
 		line := fmt.Sprintf("%v", number)
 		file.WriteString("only vars as parameter!! Line: " + line + "\n")
@@ -600,7 +600,7 @@ func shart() {
 func SyntaxChecker(code string) {
 	pointer = 0
 	internalcode = code
-	errorfile, _ := os.OpenFile("./data/errors.txt", os.O_APPEND|os.O_WRONLY, 0644)
+	errorfile, _ := os.OpenFile("../data/errors.txt", os.O_APPEND|os.O_WRONLY, 0644)
 	file = errorfile
 	OpenIndexes = indexGen(code, "[")
 	CloseIndexes = indexGen(code, "]")
